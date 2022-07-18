@@ -2,7 +2,6 @@ package top.javatool.canal.client.client;
 
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
-
 import org.apache.commons.lang.StringUtils;
 import top.javatool.canal.client.handler.MessageHandler;
 
@@ -15,11 +14,9 @@ import java.util.concurrent.TimeUnit;
 public class ZookeeperClusterCanalClient extends AbstractCanalClient {
 
 
-
-    public static Builder builder(){
+    public static Builder builder() {
         return Builder.builder();
     }
-
 
 
     public static final class Builder {

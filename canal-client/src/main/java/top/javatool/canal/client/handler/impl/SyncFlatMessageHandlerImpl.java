@@ -5,12 +5,10 @@ import top.javatool.canal.client.handler.AbstractFlatMessageHandler;
 import top.javatool.canal.client.handler.EntryHandler;
 import top.javatool.canal.client.handler.RowDataHandler;
 
-
 import java.util.List;
 import java.util.Map;
 
 public class SyncFlatMessageHandlerImpl extends AbstractFlatMessageHandler {
-
 
 
     public SyncFlatMessageHandlerImpl(List<? extends EntryHandler> entryHandlers, RowDataHandler<List<Map<String, String>>> rowDataHandler) {

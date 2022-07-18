@@ -16,8 +16,8 @@ import top.javatool.canal.client.handler.RowDataHandler;
 import top.javatool.canal.client.handler.impl.AsyncMessageHandlerImpl;
 import top.javatool.canal.client.handler.impl.RowDataHandlerImpl;
 import top.javatool.canal.client.handler.impl.SyncMessageHandlerImpl;
-import top.javatool.canal.client.spring.boot.properties.CanalSimpleProperties;
 import top.javatool.canal.client.spring.boot.properties.CanalProperties;
+import top.javatool.canal.client.spring.boot.properties.CanalSimpleProperties;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -43,7 +43,7 @@ public class ZookeeperClientAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnProperty(value = CanalProperties.CANAL_ASYNC, havingValue = "true",matchIfMissing = true)
+    @ConditionalOnProperty(value = CanalProperties.CANAL_ASYNC, havingValue = "true", matchIfMissing = true)
     public MessageHandler messageHandler(RowDataHandler<CanalEntry.RowData> rowDataHandler, List<EntryHandler> entryHandlers,
                                          ExecutorService executorService) {
         return new AsyncMessageHandlerImpl(entryHandlers, rowDataHandler, executorService);

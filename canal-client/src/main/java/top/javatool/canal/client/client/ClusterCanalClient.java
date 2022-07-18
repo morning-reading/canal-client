@@ -2,7 +2,6 @@ package top.javatool.canal.client.client;
 
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
-
 import org.apache.commons.lang.StringUtils;
 import top.javatool.canal.client.handler.MessageHandler;
 
@@ -13,8 +12,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ClusterCanalClient extends AbstractCanalClient {
-
-
 
 
     public static final class Builder {

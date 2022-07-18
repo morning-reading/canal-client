@@ -2,7 +2,6 @@ package top.javatool.canal.client.client;
 
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.protocol.Message;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,32 +18,14 @@ public abstract class AbstractCanalClient implements CanalClient {
 
 
     protected volatile boolean flag;
-
-
-    private Logger log = LoggerFactory.getLogger(AbstractCanalClient.class);
-
-
-    private Thread workThread;
-
-
-    private CanalConnector connector;
-
-
     protected String filter = StringUtils.EMPTY;
-
-
     protected Integer batchSize = 1;
-
-
     protected Long timeout = 1L;
-
-
     protected TimeUnit unit = TimeUnit.SECONDS;
-
-
-
+    private Logger log = LoggerFactory.getLogger(AbstractCanalClient.class);
+    private Thread workThread;
+    private CanalConnector connector;
     private MessageHandler messageHandler;
-
 
 
     @Override
@@ -89,23 +70,19 @@ public abstract class AbstractCanalClient implements CanalClient {
         }
     }
 
+    public CanalConnector getConnector() {
+        return connector;
+    }
 
     public void setConnector(CanalConnector connector) {
         this.connector = connector;
     }
 
+    public MessageHandler getMessageHandler() {
+        return messageHandler;
+    }
 
     public void setMessageHandler(MessageHandler messageHandler) {
         this.messageHandler = messageHandler;
-    }
-
-
-    public CanalConnector getConnector() {
-        return connector;
-    }
-
-
-    public MessageHandler getMessageHandler() {
-        return messageHandler;
     }
 }

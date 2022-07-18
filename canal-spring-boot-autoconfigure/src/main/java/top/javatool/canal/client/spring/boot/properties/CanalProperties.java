@@ -24,9 +24,7 @@ public class CanalProperties {
     private Boolean async;
 
 
-
     private String server;
-
 
 
     private String destination;

@@ -1,24 +1,30 @@
 [![Build Status](https://travis-ci.org/NormanGyllenhaal/canal-client.svg?branch=master)](https://travis-ci.org/NormanGyllenhaal/canal-client)
+
 ## 易用的canal 客户端 easy canal client
 
 ### 介绍
+
 canal 是阿里巴巴mysql数据库binlog的增量订阅&消费组件  
 使用该客户端前请先了解canal,https://github.com/alibaba/canal  
 canal 自身提供了简单的客户端，如果要转换为数据库的实体对象，处理消费数据要每次进行对象转换。
 该客户端直接将canal的数据原始类型转换为各个数据表的实体对象，并解耦数据的增删改操作，方便给业务使用。
 
 ### 要求
+
 java8+
 
 ### 特性
+
 * 解耦单表增删操作
 * simple,cluster,zookeeper,kafka客户端支持
 * 同步异步处理支持
 * spring boot 开箱即用
 
 ### 如何使用
-spring boot 方式 
+
+spring boot 方式
 maven 依赖
+
 ```xml
   <dependency>
       <groupId>top.javatool</groupId>
@@ -26,7 +32,9 @@ maven 依赖
       <version>1.2.6-RELEASE</version>
   </dependency>
 ```
+
 java 方式
+
 ```xml
  <dependency>
        <groupId>top.javatool</groupId>
@@ -34,6 +42,7 @@ java 方式
        <version>1.2.6-RELEASE</version>
  </dependency>
 ```
+
 配置说明
 
 |属性|描述|默认值|
@@ -51,16 +60,20 @@ java 方式
 |canal.partition |kafka partition |null
 
 ### 订阅数据库的增删改操作
+
 实现EntryHandler<T> 接口，泛型为想要订阅的数据库表的实体对象，
 该接口的方法为 java 8 的 default 方法，方法可以不实现，如果只要监听增加操作，只实现增加方法即可  
 下面以一个t_user表的user实体对象为例,
 默认情况下，将使用实体对象的jpa 注解 @Table中的表名来转换为EntryHandler中的泛型对象，
+
 ```java
 public class UserHandler implements EntryHandler<User>{
 
 }
 ```
-如果实体类没有使用jpa @Table的注解，也可以使用@CanalTable 注解在EntryHandler来标记表名，例如  
+
+如果实体类没有使用jpa @Table的注解，也可以使用@CanalTable 注解在EntryHandler来标记表名，例如
+
 ```java
 @CanalTable(value = "t_user")
 @Component
@@ -96,7 +109,9 @@ public class UserHandler implements EntryHandler<User>{
    }
 }
 ```
+
 另外也支持统一的处理@CanalTable(value="all"),这样除去存在EntryHandler的表以外，其他所有表的处理将通过该处理器,统一转为Map<String, String>对象
+
 ```java
 @CanalTable(value = "all")
 @Component
@@ -118,9 +133,12 @@ public class DefaultEntryHandler implements EntryHandler<Map<String, String>> {
         }
 }
 ```
+
 如果你想获取除实体类信息外的其他信息，可以使用
+
 ```java
 CanalModel canal = CanalContext.getModel();
 ```
+
 具体使用可以查询项目demo 示例  
 https://github.com/NormanGyllenhaal/canal-client/tree/master/canal-example

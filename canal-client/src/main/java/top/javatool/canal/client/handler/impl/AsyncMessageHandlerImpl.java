@@ -6,7 +6,6 @@ import top.javatool.canal.client.handler.AbstractMessageHandler;
 import top.javatool.canal.client.handler.EntryHandler;
 import top.javatool.canal.client.handler.RowDataHandler;
 
-
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 

@@ -14,6 +14,6 @@ public class CanalThreadUncaughtExceptionHandler implements Thread.UncaughtExcep
 
     @Override
     public void uncaughtException(Thread t, Throwable e) {
-        logger.error("thread "+ t.getName()+" have a exception",e);
+        logger.error("thread " + t.getName() + " have a exception", e);
     }
 }
