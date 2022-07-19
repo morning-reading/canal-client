@@ -5,13 +5,9 @@ import org.apache.commons.lang.StringUtils;
 import java.util.concurrent.TimeUnit;
 
 public class CanalProperties {
-
-
     public static final String CANAL_PREFIX = "canal";
 
-
     public static final String CANAL_ASYNC = CANAL_PREFIX + "." + "async";
-
 
     public static final String CANAL_MODE = CANAL_PREFIX + "." + "mode";
 
@@ -20,15 +16,11 @@ public class CanalProperties {
      */
     private String mode;
 
-
     private Boolean async;
-
 
     private String server;
 
-
     private String destination;
-
 
     private String filter = StringUtils.EMPTY;
 
@@ -38,7 +30,6 @@ public class CanalProperties {
 
     private TimeUnit unit = TimeUnit.SECONDS;
 
-
     public Boolean getAsync() {
         return async;
     }
@@ -47,7 +38,6 @@ public class CanalProperties {
         this.async = async;
     }
 
-
     public String getMode() {
         return mode;
     }
@@ -55,7 +45,6 @@ public class CanalProperties {
     public void setMode(String mode) {
         this.mode = mode;
     }
-
 
     public String getFilter() {
         return filter;
@@ -88,7 +77,6 @@ public class CanalProperties {
     public void setUnit(TimeUnit unit) {
         this.unit = unit;
     }
-
 
     public String getServer() {
         return server;

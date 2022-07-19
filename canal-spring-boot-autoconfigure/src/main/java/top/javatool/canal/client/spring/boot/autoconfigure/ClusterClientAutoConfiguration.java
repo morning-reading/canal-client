@@ -1,6 +1,5 @@
 package top.javatool.canal.client.spring.boot.autoconfigure;
 
-
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -28,10 +27,7 @@ import java.util.concurrent.ExecutorService;
 @ConditionalOnProperty(value = CanalProperties.CANAL_MODE, havingValue = "cluster")
 @Import(ThreadPoolAutoConfiguration.class)
 public class ClusterClientAutoConfiguration {
-
-
     private CanalSimpleProperties canalSimpleProperties;
-
 
     public ClusterClientAutoConfiguration(CanalSimpleProperties canalSimpleProperties) {
         this.canalSimpleProperties = canalSimpleProperties;
@@ -44,18 +40,16 @@ public class ClusterClientAutoConfiguration {
 
     @Bean
     @ConditionalOnProperty(value = CanalProperties.CANAL_ASYNC, havingValue = "true", matchIfMissing = true)
-    public MessageHandler messageHandler(RowDataHandler<CanalEntry.RowData> rowDataHandler, List<EntryHandler> entryHandlers,
-                                         ExecutorService executorService) {
+    public MessageHandler asyncMessageHandler(RowDataHandler<CanalEntry.RowData> rowDataHandler, List<EntryHandler> entryHandlers,
+                                              ExecutorService executorService) {
         return new AsyncMessageHandlerImpl(entryHandlers, rowDataHandler, executorService);
     }
 
-
     @Bean
     @ConditionalOnProperty(value = CanalProperties.CANAL_ASYNC, havingValue = "false")
-    public MessageHandler messageHandler(RowDataHandler<CanalEntry.RowData> rowDataHandler, List<EntryHandler> entryHandlers) {
+    public MessageHandler syncMessageHandler(RowDataHandler<CanalEntry.RowData> rowDataHandler, List<EntryHandler> entryHandlers) {
         return new SyncMessageHandlerImpl(entryHandlers, rowDataHandler);
     }
-
 
     @Bean(initMethod = "start", destroyMethod = "stop")
     public ClusterCanalClient clusterCanalClient(MessageHandler messageHandler) {

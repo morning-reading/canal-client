@@ -28,15 +28,11 @@ import java.util.concurrent.ExecutorService;
 @ConditionalOnProperty(value = CanalProperties.CANAL_MODE, havingValue = "simple", matchIfMissing = true)
 @Import(ThreadPoolAutoConfiguration.class)
 public class SimpleClientAutoConfiguration {
-
-
     private CanalSimpleProperties canalSimpleProperties;
-
 
     public SimpleClientAutoConfiguration(CanalSimpleProperties canalSimpleProperties) {
         this.canalSimpleProperties = canalSimpleProperties;
     }
-
 
     @Bean
     public RowDataHandler<CanalEntry.RowData> rowDataHandler() {
@@ -45,18 +41,16 @@ public class SimpleClientAutoConfiguration {
 
     @Bean
     @ConditionalOnProperty(value = CanalProperties.CANAL_ASYNC, havingValue = "true", matchIfMissing = true)
-    public MessageHandler messageHandler(RowDataHandler<CanalEntry.RowData> rowDataHandler, List<EntryHandler> entryHandlers,
-                                         ExecutorService executorService) {
+    public MessageHandler asyncMessageHandler(RowDataHandler<CanalEntry.RowData> rowDataHandler, List<EntryHandler> entryHandlers,
+                                              ExecutorService executorService) {
         return new AsyncMessageHandlerImpl(entryHandlers, rowDataHandler, executorService);
     }
 
-
     @Bean
     @ConditionalOnProperty(value = CanalProperties.CANAL_ASYNC, havingValue = "false")
-    public MessageHandler messageHandler(RowDataHandler<CanalEntry.RowData> rowDataHandler, List<EntryHandler> entryHandlers) {
+    public MessageHandler syncMessageHandler(RowDataHandler<CanalEntry.RowData> rowDataHandler, List<EntryHandler> entryHandlers) {
         return new SyncMessageHandlerImpl(entryHandlers, rowDataHandler);
     }
-
 
     @Bean(initMethod = "start", destroyMethod = "stop")
     public SimpleCanalClient simpleCanalClient(MessageHandler messageHandler) {

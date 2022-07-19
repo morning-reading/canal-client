@@ -28,15 +28,11 @@ import java.util.concurrent.ExecutorService;
 @ConditionalOnProperty(value = CanalProperties.CANAL_MODE, havingValue = "kafka")
 @Import(ThreadPoolAutoConfiguration.class)
 public class KafkaClientAutoConfiguration {
-
-
     private CanalKafkaProperties canalKafkaProperties;
-
 
     public KafkaClientAutoConfiguration(CanalKafkaProperties canalKafkaProperties) {
         this.canalKafkaProperties = canalKafkaProperties;
     }
-
 
     @Bean
     public RowDataHandler<List<Map<String, String>>> rowDataHandler() {
@@ -45,19 +41,17 @@ public class KafkaClientAutoConfiguration {
 
     @Bean
     @ConditionalOnProperty(value = CanalProperties.CANAL_ASYNC, havingValue = "true", matchIfMissing = true)
-    public MessageHandler messageHandler(RowDataHandler<List<Map<String, String>>> rowDataHandler,
-                                         List<EntryHandler> entryHandlers,
-                                         ExecutorService executorService) {
+    public MessageHandler asyncFlatMessageHandler(RowDataHandler<List<Map<String, String>>> rowDataHandler,
+                                                  List<EntryHandler> entryHandlers,
+                                                  ExecutorService executorService) {
         return new AsyncFlatMessageHandlerImpl(entryHandlers, rowDataHandler, executorService);
     }
 
-
     @Bean
     @ConditionalOnProperty(value = CanalProperties.CANAL_ASYNC, havingValue = "false")
-    public MessageHandler messageHandler(RowDataHandler<List<Map<String, String>>> rowDataHandler, List<EntryHandler> entryHandlers) {
+    public MessageHandler syncFlatMessageHandler(RowDataHandler<List<Map<String, String>>> rowDataHandler, List<EntryHandler> entryHandlers) {
         return new SyncFlatMessageHandlerImpl(entryHandlers, rowDataHandler);
     }
-
 
     @Bean(initMethod = "start", destroyMethod = "stop")
     public KafkaCanalClient kafkaCanalClient(MessageHandler messageHandler) {

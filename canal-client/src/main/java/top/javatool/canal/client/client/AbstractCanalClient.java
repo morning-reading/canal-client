@@ -55,10 +55,15 @@ public abstract class AbstractCanalClient implements CanalClient {
                 connector.subscribe(filter);
                 while (flag) {
                     Message message = connector.getWithoutAck(batchSize, timeout, unit);
-                    log.info("获取消息 {}", message);
+                    int size = message.getEntries().size();
+                    log.info("获取数据size：{}，获取消息：{}", size, message);
                     long batchId = message.getId();
                     if (message.getId() != -1 && message.getEntries().size() != 0) {
                         messageHandler.handleMessage(message);
+                    } else {
+                        //休眠500ms
+                        log.info("暂无数据操纵语言(DML)处理操作，当前线程休眠500ms！");
+                        TimeUnit.MILLISECONDS.sleep(500);
                     }
                     connector.ack(batchId);
                 }

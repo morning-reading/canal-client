@@ -5,8 +5,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = CanalSimpleProperties.CANAL_PREFIX)
 public class CanalSimpleProperties extends CanalProperties {
-
-
     private String userName;
 
     private String password;
@@ -27,6 +25,4 @@ public class CanalSimpleProperties extends CanalProperties {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
 }
